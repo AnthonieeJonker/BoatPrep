@@ -1,0 +1,6 @@
+@BoatLoadingChecker.Server_HostAddress = http://localhost:5247
+
+GET {{BoatLoadingChecker.Server_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

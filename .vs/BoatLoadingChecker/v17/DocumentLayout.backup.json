@@ -1,0 +1,86 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\Anthonie\\source\\repos\\BoatLoadingChecker\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{E16F504E-BB92-40CA-8DA9-81B5DDDE68FB}|BoatLoadingChecker.Server\\BoatLoadingChecker.Server.csproj|c:\\users\\anthonie\\source\\repos\\boatloadingchecker\\boatloadingchecker.server\\models\\boatdata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E16F504E-BB92-40CA-8DA9-81B5DDDE68FB}|BoatLoadingChecker.Server\\BoatLoadingChecker.Server.csproj|solutionrelative:boatloadingchecker.server\\models\\boatdata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E16F504E-BB92-40CA-8DA9-81B5DDDE68FB}|BoatLoadingChecker.Server\\BoatLoadingChecker.Server.csproj|c:\\users\\anthonie\\source\\repos\\boatloadingchecker\\boatloadingchecker.server\\controllers\\boatparsercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E16F504E-BB92-40CA-8DA9-81B5DDDE68FB}|BoatLoadingChecker.Server\\BoatLoadingChecker.Server.csproj|solutionrelative:boatloadingchecker.server\\controllers\\boatparsercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E16F504E-BB92-40CA-8DA9-81B5DDDE68FB}|BoatLoadingChecker.Server\\BoatLoadingChecker.Server.csproj|c:\\users\\anthonie\\source\\repos\\boatloadingchecker\\boatloadingchecker.server\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E16F504E-BB92-40CA-8DA9-81B5DDDE68FB}|BoatLoadingChecker.Server\\BoatLoadingChecker.Server.csproj|solutionrelative:boatloadingchecker.server\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 5,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{873151d0-cf2e-48cc-b4bf-ad0394f6a3c3}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{b1e99781-ab81-11d0-b683-00aa00a3ee26}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{e1b7d1f8-9b3c-49b1-8f4f-bfc63a88835d}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{cce594b6-0c39-4442-ba28-10c64ac7e89f}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\Anthonie\\source\\repos\\BoatLoadingChecker\\BoatLoadingChecker.Server\\Program.cs",
+              "RelativeDocumentMoniker": "BoatLoadingChecker.Server\\Program.cs",
+              "ToolTip": "C:\\Users\\Anthonie\\source\\repos\\BoatLoadingChecker\\BoatLoadingChecker.Server\\Program.cs",
+              "RelativeToolTip": "BoatLoadingChecker.Server\\Program.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABsAAAAfAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-29T13:53:39.082Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "BoatData.cs",
+              "DocumentMoniker": "C:\\Users\\Anthonie\\source\\repos\\BoatLoadingChecker\\BoatLoadingChecker.Server\\Models\\BoatData.cs",
+              "RelativeDocumentMoniker": "BoatLoadingChecker.Server\\Models\\BoatData.cs",
+              "ToolTip": "C:\\Users\\Anthonie\\source\\repos\\BoatLoadingChecker\\BoatLoadingChecker.Server\\Models\\BoatData.cs",
+              "RelativeToolTip": "BoatLoadingChecker.Server\\Models\\BoatData.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAACEAAAAVAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-29T10:11:02.649Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "BoatParserController.cs",
+              "DocumentMoniker": "C:\\Users\\Anthonie\\source\\repos\\BoatLoadingChecker\\BoatLoadingChecker.Server\\Controllers\\BoatParserController.cs",
+              "RelativeDocumentMoniker": "BoatLoadingChecker.Server\\Controllers\\BoatParserController.cs",
+              "ToolTip": "C:\\Users\\Anthonie\\source\\repos\\BoatLoadingChecker\\BoatLoadingChecker.Server\\Controllers\\BoatParserController.cs*",
+              "RelativeToolTip": "BoatLoadingChecker.Server\\Controllers\\BoatParserController.cs*",
+              "ViewState": "AgIAAIAAAAAAAAAAAAAYwJsAAAAiAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-29T10:07:25.14Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

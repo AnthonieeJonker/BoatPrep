@@ -1,0 +1,87 @@
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using BoatLoadingChecker.Server.Models;
+using System.Text.RegularExpressions;
+using System.IO;
+using UglyToad.PdfPig;
+using System.Linq;
+using System.Globalization;
+
+namespace BoatLoadingChecker.Server.Controllers
+{
+    [ApiController]
+    [Route("api/[controller]")]
+    public class BoatParserController : ControllerBase
+    {
+        [HttpPost("parse")]
+        public async Task<ActionResult<BoatData>> ParsePdf(IFormFile file)
+        {
+            if (file == null || file.Length == 0)
+                return BadRequest("No file uploaded.");
+
+            string text;
+            using (var memoryStream = new MemoryStream())
+            {
+                await file.CopyToAsync(memoryStream);
+                memoryStream.Position = 0;
+
+                using var pdf = PdfDocument.Open(memoryStream);
+                text = string.Join("\n", pdf.GetPages().Select(p => p.Text));
+            }
+
+            var data = new BoatData();
+
+            // 1.2 Name and IMO
+            var match = Regex.Match(text, @"1\.2.*?:\s*(.+?)\s*\((\d{7,})\)");
+            if (match.Success)
+                data.NameImo = $"{match.Groups[1].Value.Trim()} ({match.Groups[2].Value})";
+
+            // 1.27 Length overall
+            match = Regex.Match(text, @"1\.27 Length overall.*?:\s*([\d.]+)\s*Metres");
+            if (match.Success)
+                data.LengthOverall = float.Parse(match.Groups[1].Value, CultureInfo.InvariantCulture);
+
+            // 1.34 Parallel body distances
+            data.ParallelBody.Forward = ExtractPB(text, "Forward to mid-point manifold");
+            data.ParallelBody.Aft = ExtractPB(text, "Aft to mid-point manifold");
+            data.ParallelBody.Total = ExtractPB(text, "Parallel body length");
+
+            // 1.39 Freeboard Summer
+            match = Regex.Match(text, @"Summer:\s*([\d.]+)\s*Metres\s*[\d.]+\s*Metres\s*[\d,]+");
+            if (match.Success)
+                data.FreeboardSummer = float.Parse(match.Groups[1].Value, CultureInfo.InvariantCulture);
+
+            // 1.39 Summer Deadweight
+            match = Regex.Match(text, @"Summer:\s*[\d.]+\s*Metres\s*[\d.]+\s*Metres\s*([\d,]+)");
+            if (match.Success)
+                data.SummerDeadweight = int.Parse(match.Groups[1].Value.Replace(",", ""));
+
+            // 8.24 Manifold Height
+            match = Regex.Match(text, @"8\.24 Manifold height.*?:\s*([\d.]+)\s*Metres\s*([\d.]+)\s*Metres");
+            if (match.Success)
+            {
+                data.ManifoldHeight.NormalBallast = float.Parse(match.Groups[1].Value, CultureInfo.InvariantCulture);
+                data.ManifoldHeight.SummerDWT = float.Parse(match.Groups[2].Value, CultureInfo.InvariantCulture);
+            }
+
+            // 8.2a Cargo capacity 98%
+            match = Regex.Match(text, @"8\.2a Grand Total Cubic Capacity \(98%\).*?([\d.,]+)\s*Cu\. Metres");
+            if (match.Success)
+                data.CargoCapacity98 = float.Parse(match.Groups[1].Value.Replace(",", ""), CultureInfo.InvariantCulture);
+
+            return Ok(data);
+        }
+
+        private static MeasurementSet ExtractPB(string text, string label)
+        {
+            var match = Regex.Match(text, $@"{Regex.Escape(label)}: ([\d.]+) Metres ([\d.]+) Metres ([\d.]+) Metres");
+            if (!match.Success) return new MeasurementSet();
+            return new MeasurementSet
+            {
+                Lightship = float.Parse(match.Groups[1].Value, CultureInfo.InvariantCulture),
+                NormalBallast = float.Parse(match.Groups[2].Value, CultureInfo.InvariantCulture),
+                SummerDWT = float.Parse(match.Groups[3].Value, CultureInfo.InvariantCulture)
+            };
+        }
+    }
+}

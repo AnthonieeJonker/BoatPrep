@@ -1,0 +1,1 @@
+C:\Users\Anthonie\source\repos\BoatLoadingChecker\boatloadingchecker.client\obj\Debug\boatloadingchecker.client.esproj.CoreCompileInputs.cache

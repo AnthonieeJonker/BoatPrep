@@ -1,0 +1,222 @@
+<div class="upload-container">
+  <div class="upload-box" (click)="fileInput.click()">
+    <input
+      #fileInput
+      type="file"
+      (change)="onFileSelected($event)"
+      accept=".pdf,.docx"
+      style="display: none"
+    />
+    <h2>Upload Boat Document</h2>
+    <p>Click to upload a PDF or DOCX file</p>
+  </div>
+
+  <div *ngIf="error" class="error-message">
+    {{ error }}
+  </div>
+
+  <div *ngIf="loading" class="text-center">
+    <div class="loading-spinner"></div>
+    <p>Processing file...</p>
+  </div>
+
+  <div *ngIf="boatData">
+    <h3>Boat Data</h3>
+    <table class="data-table">
+      <tr>
+        <th>Ship Name</th>
+        <td>{{ boatData.shipName }}</td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <th>IMO Number</th>
+        <td>{{ boatData.imoNumber }}</td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <th>Length Overall</th>
+        <td>{{ boatData.lengthOverall }}</td>
+        <td>
+          <span *ngIf="checkLengthOverall(boatData.lengthOverall) === true" style="color: green;">&#10003;</span>
+          <span *ngIf="checkLengthOverall(boatData.lengthOverall) === false" style="color: red;">&#10007;</span>
+        </td>
+        <td>{{ getLengthOverallCheckText(boatData.lengthOverall) }}</td>
+      </tr>
+      <tr>
+        <th>Freeboard Summer</th>
+        <td>{{ boatData.freeboardSummer }}</td>
+        <td>
+          <span *ngIf="checkFreeboardSummer(boatData.freeboardSummer) === true" style="color: green;">&#10003;</span>
+          <span *ngIf="checkFreeboardSummer(boatData.freeboardSummer) === false" style="color: red;">&#10007;</span>
+        </td>
+        <td>{{ getFreeboardSummerCheckText(boatData.freeboardSummer) }}</td>
+      </tr>
+      <tr>
+        <th>Summer Deadweight</th>
+        <td>{{ boatData.summerDeadweight }}</td>
+        <td>
+          <span *ngIf="checkSummerDeadweight(boatData.summerDeadweight) === true" style="color: green;">&#10003;</span>
+          <span *ngIf="checkSummerDeadweight(boatData.summerDeadweight) === false" style="color: red;">&#10007;</span>
+        </td>
+        <td>{{ getSummerDeadweightCheckText(boatData.summerDeadweight) }}</td>
+      </tr>
+      <tr>
+        <th>Cargo Capacity 98%</th>
+        <td>{{ boatData.cargoCapacity98 }}</td>
+        <td></td>
+        <td></td>
+      </tr>
+
+      <!-- Parallel Body Section -->
+      <tr class="section-header">
+        <td colspan="4">Parallel Body - Forward</td>
+      </tr>
+      <tr>
+        <th>Lightship</th>
+        <td>{{ boatData.parallelBody.forward.lightship }}</td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <th>Normal Ballast</th>
+        <td>{{ boatData.parallelBody.forward.normalBallast }}</td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <th>Summer DWT</th>
+        <td>{{ boatData.parallelBody.forward.summerDWT }}</td>
+        <td></td>
+        <td></td>
+      </tr>
+
+      <tr class="section-header">
+        <td colspan="4">Parallel Body - Aft</td>
+      </tr>
+      <tr>
+        <th>Lightship</th>
+        <td>{{ boatData.parallelBody.aft.lightship }}</td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <th>Normal Ballast</th>
+        <td>{{ boatData.parallelBody.aft.normalBallast }}</td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <th>Summer DWT</th>
+        <td>{{ boatData.parallelBody.aft.summerDWT }}</td>
+        <td></td>
+        <td></td>
+      </tr>
+
+      <tr class="section-header">
+        <td colspan="4">Parallel Body - Total</td>
+      </tr>
+      <tr>
+        <th>Lightship</th>
+        <td>{{ boatData.parallelBody.total.lightship }}</td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <th>Normal Ballast</th>
+        <td>{{ boatData.parallelBody.total.normalBallast }}</td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <th>Summer DWT</th>
+        <td>{{ boatData.parallelBody.total.summerDWT }}</td>
+        <td></td>
+        <td></td>
+      </tr>
+
+      <!-- Manifold Height Section -->
+      <tr class="section-header">
+        <td colspan="4">Manifold Height</td>
+      </tr>
+      <tr>
+        <th>Normal Ballast</th>
+        <td>{{ boatData.manifoldHeight.normalBallast }}</td>
+        <td>
+          <span *ngIf="checkManifoldHeight(boatData.manifoldHeight.normalBallast) === true" style="color: green;">&#10003;</span>
+          <span *ngIf="checkManifoldHeight(boatData.manifoldHeight.normalBallast) === false" style="color: red;">&#10007;</span>
+        </td>
+        <td>{{ getManifoldHeightCheckText(boatData.manifoldHeight.normalBallast) }}</td>
+      </tr>
+      <tr>
+        <th>Summer DWT</th>
+        <td>{{ boatData.manifoldHeight.summerDWT }}</td>
+        <td></td>
+        <td></td>
+      </tr>
+    </table>
+
+    <!-- Loading Arm Fit Table -->
+    <h3>Loading Arm Fit Check</h3>
+    <table class="data-table">
+      <tr>
+        <th>Arm</th>
+        <th>Can Load?</th>
+        <th>Criteria</th>
+      </tr>
+      <tr *ngFor="let result of getLoadingArmResults()">
+        <td>{{ result.arm }}</td>
+        <td>
+          <span *ngIf="result.canLoad" style="color: green;">&#10003; Yes</span>
+          <span *ngIf="!result.canLoad" style="color: red;">&#10007; No</span>
+        </td>
+        <td>
+          <ng-container [ngSwitch]="result.arm">
+            <span *ngSwitchCase="'4BB'">Aft &lt; 28.354, Forward &lt; 19.678</span>
+            <span *ngSwitchCase="'4SB'">Aft &lt; 19.678, Forward &lt; 28.354</span>
+            <span *ngSwitchCase="'5BB'">Aft &lt; 30.994, Forward &lt; 17.088</span>
+            <span *ngSwitchCase="'5SB'">Aft &lt; 17.088, Forward &lt; 30.994</span>
+            <span *ngSwitchCase="'7BB'">Aft &lt; 36.582, Forward &lt; 11.45</span>
+            <span *ngSwitchCase="'7SB'">Aft &lt; 11.45, Forward &lt; 36.582</span>
+            <span *ngSwitchCase="'8BB'">Aft &lt; 39.172, Forward &lt; 8.86</span>
+            <span *ngSwitchCase="'8SB'">Aft &lt; 8.86, Forward &lt; 39.172</span>
+          </ng-container>
+        </td>
+      </tr>
+    </table>
+
+    <!-- Loading Arm Fit Table for All Ballast Types -->
+    <h3>Loading Arm Fit Check (All Ballast Types)</h3>
+    <table class="data-table">
+      <tr>
+        <th>Ballast Type</th>
+        <th>Arm</th>
+        <th>Can Load?</th>
+        <th>Criteria</th>
+      </tr>
+      <ng-container *ngFor="let group of getLoadingArmResultsAllBallast()">
+        <tr *ngFor="let result of group.results; let i = index">
+          <td *ngIf="i === 0" [attr.rowspan]="group.results.length">{{ group.ballast }}</td>
+          <td>{{ result.arm }}</td>
+          <td>
+            <span *ngIf="result.canLoad" style="color: green;">&#10003; Yes</span>
+            <span *ngIf="!result.canLoad" style="color: red;">&#10007; No</span>
+          </td>
+          <td>
+            <ng-container [ngSwitch]="result.arm">
+              <span *ngSwitchCase="'4BB'">Aft &lt; 28.354, Forward &lt; 19.678</span>
+              <span *ngSwitchCase="'4SB'">Aft &lt; 19.678, Forward &lt; 28.354</span>
+              <span *ngSwitchCase="'5BB'">Aft &lt; 30.994, Forward &lt; 17.088</span>
+              <span *ngSwitchCase="'5SB'">Aft &lt; 17.088, Forward &lt; 30.994</span>
+              <span *ngSwitchCase="'7BB'">Aft &lt; 36.582, Forward &lt; 11.45</span>
+              <span *ngSwitchCase="'7SB'">Aft &lt; 11.45, Forward &lt; 36.582</span>
+              <span *ngSwitchCase="'8BB'">Aft &lt; 39.172, Forward &lt; 8.86</span>
+              <span *ngSwitchCase="'8SB'">Aft &lt; 8.86, Forward &lt; 39.172</span>
+            </ng-container>
+          </td>
+        </tr>
+      </ng-container>
+    </table>
+  </div>
+</div>

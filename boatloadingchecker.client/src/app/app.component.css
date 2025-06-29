@@ -1,0 +1,28 @@
+﻿:host {
+    max-width: 1280px;
+    padding: 2rem;
+    text-align: center;
+}
+
+nav {
+    margin: 1rem 0;
+}
+nav a {
+    margin: 0 1rem;
+    text-decoration: none;
+    color: #1976d2;
+    font-weight: 500;
+}
+nav a.active {
+    text-decoration: underline;
+    color: #0d47a1;
+}
+
+th, td {
+    padding-left: 1rem;
+    padding-right: 1rem;
+}
+
+table {
+    margin: 0 auto;
+}
